@@ -9,12 +9,15 @@ public class Usuario {
     private String nombreUsuario;
     private String email;
     private DetallePago detallePago;
+    private boolean esVip;
+
     //METODOS
     //CREADOR ID(constructor)
-    public Usuario(String nuevoNombreUsuario, String nuevoEmail){
+    public Usuario(String nuevoNombreUsuario, String nuevoEmail, boolean nuevoEsVip){
         nombreUsuario = nuevoNombreUsuario;
         email = nuevoEmail;
         id = UUID.randomUUID().toString();
+        esVip = nuevoEsVip;
     }
     //CONSULTAS
     public String consultarNombre(){
@@ -43,5 +46,13 @@ public class Usuario {
 
     public DetallePago consultarDetallePago() {
         return detallePago;
+    }
+
+    public boolean getEsVip() {
+        return esVip;
+    }
+
+    public void setEsVip(boolean esVip) {
+        this.esVip = esVip;
     }
 }

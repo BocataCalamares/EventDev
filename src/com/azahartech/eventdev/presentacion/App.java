@@ -1,6 +1,7 @@
 package com.azahartech.eventdev.presentacion;
 import com.azahartech.eventdev.modelo.*;
 import com.azahartech.eventdev.servicio.ServicioEvento;
+import com.azahartech.eventdev.servicio.ServicioUsuario;
 
 import java.time.LocalDate;
 
@@ -158,13 +159,24 @@ public class App {
 //SERVICIO EVENTO
          **/
         ServicioEvento servicioEvento = new ServicioEvento();
+        ServicioUsuario servicioUsuario = new ServicioUsuario();
        /** servicioEvento.realizarCompra(20); **/
 
         //CONCIERTO
         Recinto recintoPrueba = new Recinto("recintoPrueba", "Calle Lavanda 5", 1000);
-        Evento fdl = new Evento("Feria del Libro", LocalDate.of(2025,12,27), recintoPrueba, 20);
+        Recinto recintoPrueba2 = new Recinto("recintoPrueba2", "C/Leopoldo III 25", 50);
+        Recinto recintoPrueba3 = new Recinto("Bar Manolo", "C/Salvador Illa 16", 20);
+        Recinto recintoPrueba4 = new Recinto("recintoPrueba4", "C/Tiramisú 5", 150);
+        Evento fdl = new Evento("Feria del Libro", LocalDate.of(2025,12,27), recintoPrueba2, 20);
         Evento evento2 = new Evento("Feria Castellon", LocalDate.of(2026,5,25), recintoPrueba, 90);
-        Evento evento3 = new Evento("Feria Valencia", LocalDate.of(2026,10,25), recintoPrueba, 70);
+        Evento evento3 = new Evento("Feria Valencia", LocalDate.of(2026,10,25), recintoPrueba4, 70);
+        Evento evento4 = new Evento("Feria Vila-Real", LocalDate.of(2025, 12, 5), recintoPrueba3, 5);
+        Evento evento5 = new Evento("Feria Almassora", LocalDate.of(2026, 01, 3), recintoPrueba2, 10);
+
+        Usuario Pau  = new Usuario("Pau", "pau@mail.com", true);
+        Usuario Junfeng  = new Usuario("Junfeng", "junfeng@mail.com", true);
+        Usuario Maria = new Usuario("Maria", "maria@mail.com", false);
+        Usuario Terminator  = new Usuario("Terminator", "terminator@mail.com", false);
 
         /**     Concierto conciertoPrueba = new Concierto("conciertoPrueba", LocalDate.of(2025,12,05), recintoPrueba,20, "My Chemical Romance" );
              conciertoPrueba.consultarNombre();
@@ -182,13 +194,35 @@ public class App {
         recintoPrueba.reservarAsientoVip(10);
         recintoPrueba.consultarAsientosVip();
         System.out.println(recintoPrueba.contarAsientosVipLibres());
-        servicioEvento.añadirDestacado(fdl);
-        servicioEvento.añadirDestacado(evento2);
-        servicioEvento.añadirDestacado(evento3);
-        servicioEvento.mostrarCartelera();
+        servicioEvento.registrarEvento(fdl);
+        servicioEvento.registrarEvento(evento2);
+        servicioEvento.registrarEvento(evento3);
+        servicioEvento.registrarEvento(evento4);
+        servicioEvento.registrarEvento(evento5);
+        servicioUsuario.registrarUsuario(Pau);
+        servicioUsuario.registrarUsuario(Maria);
+        servicioUsuario.registrarUsuario(Junfeng);
+        servicioUsuario.registrarUsuario(Terminator);
+        servicioEvento.mostrarTodosEventos();
         recintoPrueba.mostrarInformacion();
+
+        //servicioEvento.eliminarEventosPasados();
         //servicioEvento.buscarDestacadoMasCaro().mostrarInformacion();
-        }
+        System.out.println("---Verificaciones STREAMS---");
+        System.out.println("--BUSCANDO EVENTO--");
+        System.out.println(servicioEvento.buscarEvento("feria castellon"));
+        System.out.println("--AFORO CAPACIDAD ALTA--");
+        System.out.println(servicioEvento.obtenerEventosConAforoMayor(100));
+        System.out.println("--USUARIOS VIPS--");
+        servicioUsuario.mostrarUsuarios();
+        servicioUsuario.imprimirVips();
+        System.out.println("--EVENTOS BENEFICOS--");
+        System.out.println(servicioEvento.contarEventosBeneficos());
+        System.out.println("----BUSCAR POR NOMBRE----");
+        servicioUsuario.buscarPorNombre("Pau");
+        System.out.println("---CUANTOS EVENTOS SUPERAN EL AFORO MINIMO---");
+        System.out.println(servicioEvento.contarEventosPorAforo(100));
+    }
 
 
 

@@ -1,6 +1,7 @@
 package com.azahartech.eventdev.modelo;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Evento {
 
@@ -9,6 +10,8 @@ public class Evento {
     private LocalDate fecha;
     private Recinto recinto;
     private double precio;
+    private boolean esBenefico = false;
+    private String id;
 
     //METODOS
     //CONSTRUCTOR
@@ -17,13 +20,17 @@ public class Evento {
         fecha=nuevaFecha;
         recinto=nuevoRecinto;
         precio=nuevoPrecio;
+        if (precio<=10){
+            esBenefico=true;
+        }
+        id= UUID.randomUUID().toString();
     }
     //CONSULTAS
     public String consultarNombre(){
         return nombre;
     }
-    public String consultarFecha(){
-        return fecha.toString();
+    public LocalDate consultarFecha(){
+        return fecha;
     }
     public double consultarPrecio(){return precio;}
     public Recinto consultarRecinto(){
@@ -34,5 +41,26 @@ public class Evento {
     }
     public void registrarVenta(int cantidad){
         System.out.printf("Venta registrada%n");
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    public boolean isEsBenefico() {
+        return esBenefico;
+    }
+
+    public void setEsBenefico(boolean esBenefico) {
+        this.esBenefico = esBenefico;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }
