@@ -2,8 +2,10 @@ package com.azahartech.eventdev.presentacion;
 import com.azahartech.eventdev.modelo.*;
 import com.azahartech.eventdev.servicio.ServicioEvento;
 import com.azahartech.eventdev.servicio.ServicioUsuario;
+import com.azahartech.eventdev.util.UtilidadValidacion;
 
 import java.time.LocalDate;
+import java.util.Scanner;
 
 /**
  * Aplicación de gestión de eventos
@@ -13,8 +15,8 @@ import java.time.LocalDate;
 public class App {
 
     public static void main(String[] args) {
-      /**  Scanner teclado = new Scanner(System.in);
-        int opcion;
+        Scanner teclado = new Scanner(System.in);
+       /** int opcion;
         String nombreEvento;
         int dia;
         int mes;
@@ -167,16 +169,59 @@ public class App {
         Recinto recintoPrueba2 = new Recinto("recintoPrueba2", "C/Leopoldo III 25", 50);
         Recinto recintoPrueba3 = new Recinto("Bar Manolo", "C/Salvador Illa 16", 20);
         Recinto recintoPrueba4 = new Recinto("recintoPrueba4", "C/Tiramisú 5", 150);
-        Evento fdl = new Evento("Feria del Libro", LocalDate.of(2025,12,27), recintoPrueba2, 20);
-        Evento evento2 = new Evento("Feria Castellon", LocalDate.of(2026,5,25), recintoPrueba, 90);
-        Evento evento3 = new Evento("Feria Valencia", LocalDate.of(2026,10,25), recintoPrueba4, 70);
-        Evento evento4 = new Evento("Feria Vila-Real", LocalDate.of(2025, 12, 5), recintoPrueba3, 5);
-        Evento evento5 = new Evento("Feria Almassora", LocalDate.of(2026, 01, 3), recintoPrueba2, 10);
+        Evento fdl = new Evento("Feria del Libro", LocalDate.of(2025,12,27), recintoPrueba2, 20, "ABCD");
+        Evento evento2;
+        Evento evento3 = new Evento("Feria Valencia", LocalDate.of(2026,10,25), recintoPrueba4, 70, "CABD");
+        Evento evento4 = new Evento("Feria Vila-Real", LocalDate.of(2025, 12, 5), recintoPrueba3, 5, "BACD");
+        Evento evento5 = new Evento("Feria Almassora", LocalDate.of(2026, 01, 3), recintoPrueba2, 10, "DABC");
 
-        Usuario Pau  = new Usuario("Pau", "pau@mail.com", true);
+        //CREACION DEL EVENTO
+        System.out.println("---CREACION EVENTO---");
+        System.out.println("Introduce nombre del evento: ");
+        String nombreEvento = teclado.nextLine();
+        System.out.println("Introduce Año del evento: ");
+        int year = teclado.nextInt();
+        teclado.nextLine();
+        System.out.println("Introduce el mes del evento: ");
+        int mes = teclado.nextInt();
+        teclado.nextLine();
+        System.out.println("Introduce el dia del evento: ");
+        int dia = teclado.nextInt();
+        teclado.nextLine();
+        System.out.println("Introduce un codigo valido");
+        String codigo = teclado.nextLine();
+        while(!UtilidadValidacion.esCodigoEventoValido(codigo)){
+            System.out.println("Introduce un codigo valido");
+            codigo = teclado.nextLine();
+        }
+        System.out.println("Introduce Precio: ");
+        int precio = teclado.nextInt();
+        teclado.nextLine();
+        evento2 = new Evento(nombreEvento,LocalDate.of(year,mes,dia),recintoPrueba, precio, codigo);
+        servicioEvento.registrarEvento(evento2);
+
+        Usuario Pau;
         Usuario Junfeng  = new Usuario("Junfeng", "junfeng@mail.com", true);
         Usuario Maria = new Usuario("Maria", "maria@mail.com", false);
         Usuario Terminator  = new Usuario("Terminator", "terminator@mail.com", false);
+
+        //CREACION DE USUARIO
+        System.out.println("---CREACION USUARIO----");
+        System.out.println("Introduce nombre: ");
+        String nombre = teclado.nextLine();
+        System.out.println("Introduce Email: ");
+        String mail = teclado.nextLine();
+        while(!UtilidadValidacion.esEmailValido(mail)){
+            System.out.println("Introduce Email: ");
+            mail = teclado.nextLine();
+        }
+        System.out.println("Eres vip");
+        boolean esVIP = teclado.nextBoolean();
+        teclado.nextLine();
+        Pau = new Usuario(nombre, mail, esVIP);
+        servicioUsuario.registrarUsuario(Pau);
+        Usuario pau2 = new Usuario("pau2", "pau@mail.com", true);
+        servicioUsuario.registrarUsuario(pau2);
 
         /**     Concierto conciertoPrueba = new Concierto("conciertoPrueba", LocalDate.of(2025,12,05), recintoPrueba,20, "My Chemical Romance" );
              conciertoPrueba.consultarNombre();
@@ -195,11 +240,11 @@ public class App {
         recintoPrueba.consultarAsientosVip();
         System.out.println(recintoPrueba.contarAsientosVipLibres());
         servicioEvento.registrarEvento(fdl);
-        servicioEvento.registrarEvento(evento2);
+
         servicioEvento.registrarEvento(evento3);
         servicioEvento.registrarEvento(evento4);
         servicioEvento.registrarEvento(evento5);
-        servicioUsuario.registrarUsuario(Pau);
+
         servicioUsuario.registrarUsuario(Maria);
         servicioUsuario.registrarUsuario(Junfeng);
         servicioUsuario.registrarUsuario(Terminator);
@@ -222,6 +267,7 @@ public class App {
         servicioUsuario.buscarPorNombre("Pau");
         System.out.println("---CUANTOS EVENTOS SUPERAN EL AFORO MINIMO---");
         System.out.println(servicioEvento.contarEventosPorAforo(100));
+        System.out.println("----VALIDACIONES----");
     }
 
 

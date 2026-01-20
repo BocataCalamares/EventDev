@@ -9,8 +9,8 @@ public class Partido extends Evento {
     private String equipoVisitante;
 
     //METODO CONSTRUCTOR PADRE
-    public Partido(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoEquipoLocal, String nuevoEquipoVisitante) {
-        super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio);
+    public Partido(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, String nuevoEquipoLocal, String nuevoEquipoVisitante) {
+        super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio, nuevoId);
         equipoLocal=nuevoEquipoLocal;
         equipoVisitante=nuevoEquipoVisitante;
     }

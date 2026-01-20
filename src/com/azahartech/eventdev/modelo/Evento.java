@@ -15,7 +15,7 @@ public class Evento {
 
     //METODOS
     //CONSTRUCTOR
-    public Evento(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio){
+    public Evento(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId){
         nombre=nuevoNombre;
         fecha=nuevaFecha;
         recinto=nuevoRecinto;
@@ -23,7 +23,7 @@ public class Evento {
         if (precio<=10){
             esBenefico=true;
         }
-        id= UUID.randomUUID().toString();
+        id = nuevoId;
     }
     //CONSULTAS
     public String consultarNombre(){

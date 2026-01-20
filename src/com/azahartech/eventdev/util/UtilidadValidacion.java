@@ -31,5 +31,8 @@ public class UtilidadValidacion {
     public static boolean esCodigoEventoValido(String codigo){
         return codigo.matches("EVT-\\d{4}-[A-Z]{3}");
     }
+    public static boolean esTelefonoValido(String telefono){
+        return telefono.matches("^[679]\\d{8}$");
+    }
 }
 

@@ -13,12 +13,13 @@ public class ServicioUsuario {
     // private ArrayList<Usuario> listaUsuarios = new ArrayList<>();
     private RepositorioGenerico<Usuario> repositorio = new RepositorioGenerico<>();
     private HashMap<String, Usuario> mapaUsuarios = new HashMap<>();
+
     public void registrarUsuario(Usuario usuario) {
         //listaUsuarios.add(usuario);
         repositorio.guardar(usuario);
         if(mapaUsuarios.containsKey(usuario.consultarEmail()))
         {
-            System.out.println("Error: email repetido");
+            System.err.println("Error: email repetido");
         }else {
             mapaUsuarios.put(usuario.consultarEmail(), usuario);
         }

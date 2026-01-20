@@ -8,8 +8,8 @@ public class Concierto extends Evento{
     private String bandaPrincipal;
 
 //METODO CONSTRUCTOR PADRE
-    public Concierto(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoBandaPrincipal) {
-        super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio);
+    public Concierto(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, String nuevoBandaPrincipal) {
+        super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio, nuevoId);
     bandaPrincipal = nuevoBandaPrincipal;
     }
 

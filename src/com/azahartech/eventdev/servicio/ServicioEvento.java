@@ -21,7 +21,7 @@ public class ServicioEvento {
         //this.listaEventos = new ArrayList<>();
         //carteleraDestacados = new Evento[5];
         Recinto Cdf = new Recinto("Casal de Festes", "Calle Colón nº5", 550);
-        eventoDePrueba = new Evento("Feria de Mayo", LocalDate.of(2025, 12, 27), Cdf, 20);
+        eventoDePrueba = new Evento("Feria de Mayo", LocalDate.of(2025, 12, 27), Cdf, 20, "VAMS");
         DetallePago factura = new DetallePago("Mastercard", "7512348951");
         usuarioDePrueba = new Usuario("Pedro", "Pedro@mail.com", true);
         usuarioDePrueba.añadirDetallePago(factura);
