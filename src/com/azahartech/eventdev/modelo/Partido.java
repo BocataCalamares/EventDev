@@ -7,12 +7,18 @@ public class Partido extends Evento {
     //ATRIBUTOS
     private String equipoLocal;
     private String equipoVisitante;
+    private double costeSeguridad;
+    private double costeArbitraje;
+    private final double COSTESFIJOS = 2000;
+
 
     //METODO CONSTRUCTOR PADRE
-    public Partido(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, String nuevoEquipoLocal, String nuevoEquipoVisitante) {
+    public Partido(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, String nuevoEquipoLocal, String nuevoEquipoVisitante, double costeArbitraje, double costeSeguridad) {
         super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio, nuevoId);
         equipoLocal=nuevoEquipoLocal;
         equipoVisitante=nuevoEquipoVisitante;
+        this.costeSeguridad = costeSeguridad;
+        this.costeArbitraje = costeArbitraje;
     }
     //METODOS PROPIOS
     public String consultarEquipoLocal(){
@@ -25,5 +31,39 @@ public class Partido extends Evento {
     public void mostrarInformacion(){
         super.mostrarInformacion();
         System.out.printf("---PARTIDO----%n%s vs %s%n----%n", equipoLocal, equipoVisitante);
+    }
+
+    public double getCosteSeguridad() {
+        return costeSeguridad;
+    }
+
+    public void setCosteSeguridad(double costeSeguridad) {
+        this.costeSeguridad = costeSeguridad;
+    }
+
+    public double getCosteArbitraje() {
+        return costeArbitraje;
+    }
+
+    public void setCosteArbitraje(double costeArbitraje) {
+        this.costeArbitraje = costeArbitraje;
+    }
+
+    @Override
+    public double calcularCosteOperativo() {
+        return costeArbitraje + costeSeguridad + COSTESFIJOS;
+    }
+
+    @Override
+    public String aCSV() {
+        return "Partido:" + super.aCSV() + ";" + equipoVisitante + ";" + equipoLocal;
+    }
+
+    @Override
+    public String aXML() {
+        return "<partido>\n" + super.aXML() + "\n" +
+                "\t<equipoVisitante>" + equipoVisitante + "</equipoVisitante>\n" +
+                "\t<equipoLocal>" + equipoLocal + "</equipoLocal>\n" +
+                "</partido>";
     }
 }

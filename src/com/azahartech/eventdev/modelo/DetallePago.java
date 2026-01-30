@@ -1,6 +1,8 @@
 package com.azahartech.eventdev.modelo;
 
-public class DetallePago {
+import com.azahartech.eventdev.util.Exportable;
+
+public class DetallePago implements Exportable {
 
     //ATRIBUTOS
     private String tipoTarjeta;
@@ -36,6 +38,19 @@ public class DetallePago {
         System.out.printf("---TARJETA---%nTipo: %s%nNumero: %s%n----%n", tipoTarjeta, numeroTarjeta);
 
     };
+
+    @Override
+    public String aCSV() {
+        return "Detalles de pago: " + tipoTarjeta + ";" + numeroTarjeta;
+    }
+
+    @Override
+    public String aXML() {
+        return "<detallesPago>" +
+                "\t<tipoTarjerta>" + tipoTarjeta + "</tipoTarjeta>\n" +
+                "\t<numeroTarjeta>" + numeroTarjeta+ "</numeroTarjeta>\n" +
+                "</detallesPago>\n";
+    }
 
 }
 

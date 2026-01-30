@@ -22,7 +22,7 @@ public class Comentario {
             }
     }
     public String consultarEvento() {
-        return evento.consultarNombre();
+        return evento.getNombre();
     }
 
     public String consultarAutor(){
@@ -36,7 +36,7 @@ public class Comentario {
         return comentario;
     }
     public void mostrarInformacion(){
-        System.out.printf("---COMENTARIO---%nEvento: %s%nAutor: %s%nPuntuacion: %d%nComentario%s%n----%n", evento.consultarNombre(), autor.consultarNombre(), puntuacion, comentario);
+        System.out.printf("---COMENTARIO---%nEvento: %s%nAutor: %s%nPuntuacion: %d%nComentario%s%n----%n", evento.getNombre(), autor.consultarNombre(), puntuacion, comentario);
 
     }
 

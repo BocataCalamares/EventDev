@@ -1,9 +1,11 @@
 package com.azahartech.eventdev.modelo;
 
+import com.azahartech.eventdev.util.Exportable;
+
 import java.time.LocalDate;
 import java.util.UUID;
 
-public class Ticket {
+public class Ticket implements Exportable {
     //ATRIBUTOS
     private String id;
     private Evento evento;
@@ -33,4 +35,19 @@ public class Ticket {
 
     }
 
+
+    @Override
+    public String aCSV() {
+        return "Ticket: " + id + ";" + evento.aCSV() + ";" + comprador.aCSV() + ";" + fechaCompra;
+    }
+
+    @Override
+    public String aXML() {
+        return "<ticket>\n" +
+                "\t<id>" + id + "</id>\n" +
+                "\t<evento>" + evento.aXML() + "</evento>\n" +
+                "\t<comprador>" + comprador.aXML() + "</comprador>\n" +
+                "\t<fechacompra>" + fechaCompra + "</fechacompra>\n" +
+                "</ticket>\n";
+    }
 }

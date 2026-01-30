@@ -1,6 +1,8 @@
 package com.azahartech.eventdev.modelo;
 
-public class Recinto {
+import com.azahartech.eventdev.util.Exportable;
+
+public class Recinto implements Exportable {
 
     //ATRIBUTOS
     boolean[] asientosVip = new boolean[10];
@@ -58,4 +60,18 @@ public class Recinto {
          return libre;
      }
 
+    @Override
+    public String aCSV() {
+        return "Recinto: " + contarAsientosVipLibres() + ";" + nombre + ";" + direccion + ";" + aforoMaximo;
+    }
+
+    @Override
+    public String aXML() {
+        return "<recinto>\n" +
+                "\t<vips>" + contarAsientosVipLibres() + "</vips>\n" +
+                "\t<nombreRecinto>" + this.nombre + "</nombreRecinto>\n" +
+                "\t<direccion>" + direccion + "</direccion>\n" +
+                "\t<aforo>" + aforoMaximo + "</aforo>\n" +
+                "</recinto>\n";
+    }
 }

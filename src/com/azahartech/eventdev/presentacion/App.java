@@ -1,10 +1,14 @@
 package com.azahartech.eventdev.presentacion;
 import com.azahartech.eventdev.modelo.*;
+import com.azahartech.eventdev.pagos.PagoTarjeta;
 import com.azahartech.eventdev.servicio.ServicioEvento;
 import com.azahartech.eventdev.servicio.ServicioUsuario;
+import com.azahartech.eventdev.util.Exportable;
+import com.azahartech.eventdev.util.UtilidadExportacion;
 import com.azahartech.eventdev.util.UtilidadValidacion;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -16,7 +20,8 @@ public class App {
 
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-       /** int opcion;
+        ArrayList<Exportable> listaMezclada = new ArrayList<>();
+        /* int opcion;
         String nombreEvento;
         int dia;
         int mes;
@@ -107,17 +112,20 @@ public class App {
         }while(opcion!= 1|| opcion!=2); **/
 
 
-        /**USUARIO
+        /*USUARIO
     Usuario Pau = new Usuario("Pau", "paupasalo@gmail.com");
-    DetallePago pago = new DetallePago("VISA", "123457");
-        System.out.println(Pau.consultarNombre());
+        */
+
+        /*
+        System.out.println(Pau.getNombre());
         System.out.println(Pau.consultarEmail());
         System.out.println(Pau.consultarId());
         Pau.mostrarInforamcion();
         Pau.cambiarEmail("papupasa@gmail.com");
         System.out.println(Pau.consultarEmail());
-        Pau.añadirDetallePago(pago);
+
         Pau.mostrarInforamcion();
+
 //RECINTO
     Recinto pdf = new Recinto("Palau de la Festa", "C/Fernando Cortes 13",
             570);
@@ -125,13 +133,13 @@ public class App {
         System.out.println(pdf.consultarDireccion());
         System.out.println(pdf.consultarNombreRecinto());
         pdf.mostrarInformacion();
-**/
+*/
 //EVENTO
 
-/**
-        System.out.println(fdl.consultarNombre());
-        System.out.println(fdl.consultarFecha());
-        System.out.println(fdl.consultarRecinto().consultarNombreRecinto());
+/*
+        System.out.println(fdl.getNombre());
+        System.out.println(fdl.getFecha());
+        System.out.println(fdl.getRecinto().consultarNombreRecinto());
         fdl.mostrarInformacion();
 //PAGO
 
@@ -143,9 +151,7 @@ public class App {
         System.out.println(pago.consultarTipoTarjeta());
         System.out.println(pago.consultarNumeroTarjeta());
         pago.mostrarInformacion();
-//TICKET
-       Ticket ticket = new Ticket(fdl, Pau);
-       Ticket ticket2 = new Ticket(fdl, Pau);
+//
 
        System.out.println(Ticket.obtenerTotalTickets());
        ticket.mostrarInformacion();
@@ -159,22 +165,46 @@ public class App {
         System.out.println(nota.consultarPuntuacion());
         nota.mostrarInformacion();
 //SERVICIO EVENTO
-         **/
+         */
         ServicioEvento servicioEvento = new ServicioEvento();
         ServicioUsuario servicioUsuario = new ServicioUsuario();
-       /** servicioEvento.realizarCompra(20); **/
+       /* servicioEvento.realizarCompra(20); */
 
         //CONCIERTO
         Recinto recintoPrueba = new Recinto("recintoPrueba", "Calle Lavanda 5", 1000);
         Recinto recintoPrueba2 = new Recinto("recintoPrueba2", "C/Leopoldo III 25", 50);
         Recinto recintoPrueba3 = new Recinto("Bar Manolo", "C/Salvador Illa 16", 20);
         Recinto recintoPrueba4 = new Recinto("recintoPrueba4", "C/Tiramisú 5", 150);
-        Evento fdl = new Evento("Feria del Libro", LocalDate.of(2025,12,27), recintoPrueba2, 20, "ABCD");
+       // Evento fdl = new Evento("Feria del Libro", LocalDate.of(2025,12,27), recintoPrueba2, 20, "ABCD");
+        Evento fdl;
         Evento evento2;
-        Evento evento3 = new Evento("Feria Valencia", LocalDate.of(2026,10,25), recintoPrueba4, 70, "CABD");
-        Evento evento4 = new Evento("Feria Vila-Real", LocalDate.of(2025, 12, 5), recintoPrueba3, 5, "BACD");
-        Evento evento5 = new Evento("Feria Almassora", LocalDate.of(2026, 01, 3), recintoPrueba2, 10, "DABC");
+        Evento evento3;
+        Evento evento4;
+        Evento evento5;
+        //evento3 = new Evento("Feria Valencia", LocalDate.of(2026,10,25), recintoPrueba4, 70, "CABD");
+        //evento4 = new Evento("Feria Vila-Real", LocalDate.of(2025, 12, 5), recintoPrueba3, 5, "BACD");
+        //evento5 = new Evento("Feria Almassora", LocalDate.of(2026, 01, 3), recintoPrueba2, 10, "DABC");
 
+        Concierto concierto1 = new Concierto("Bon Jovi", LocalDate.of(2026, 5,10), recintoPrueba2, 15, "EVT-123-ABC", "BonJovi",500);
+        Concierto concierto2 = new Concierto("HannahMontana", LocalDate.of(2026, 8, 10), recintoPrueba4, 20, "EVT-456-ZXC", "HannahMontana", 750);
+        Partido partido1 = new Partido("Malaga/Barcelona", LocalDate.of(2026, 4, 12), recintoPrueba3, 35, "EVT-321-CBA","Malaga", "Barcelona", 750, 3000);
+        Partido partido2 = new Partido("Villareal/Valencia", LocalDate.of(2026, 3, 12), recintoPrueba3, 20, "EVT-654-CXZ", "VillarealFC", "ValenciaFC", 750, 1750);
+
+
+
+    /*
+        System.out.println(partido1.obtenerCodigoReferencia());
+        System.out.println(concierto1.obtenerCodigoReferencia());
+        System.out.println(partido1.calcularCosteOperativo());
+        System.out.println(concierto1.calcularCosteOperativo());
+        servicioEvento.registrarEvento(partido1);
+        servicioEvento.registrarEvento(concierto1);
+        servicioEvento.registrarEvento(concierto2);
+        servicioEvento.registrarEvento(partido2);
+        servicioEvento.generarInformeFinanciero();
+
+     */
+        /*
         //CREACION DEL EVENTO
         System.out.println("---CREACION EVENTO---");
         System.out.println("Introduce nombre del evento: ");
@@ -197,13 +227,15 @@ public class App {
         System.out.println("Introduce Precio: ");
         int precio = teclado.nextInt();
         teclado.nextLine();
-        evento2 = new Evento(nombreEvento,LocalDate.of(year,mes,dia),recintoPrueba, precio, codigo);
-        servicioEvento.registrarEvento(evento2);
-
+        //evento2 = new Evento(nombreEvento,LocalDate.of(year,mes,dia),recintoPrueba, precio, codigo);
+        //servicioEvento.registrarEvento(evento2);
+*/
         Usuario Pau;
         Usuario Junfeng  = new Usuario("Junfeng", "junfeng@mail.com", true);
         Usuario Maria = new Usuario("Maria", "maria@mail.com", false);
         Usuario Terminator  = new Usuario("Terminator", "terminator@mail.com", false);
+
+
 
         //CREACION DE USUARIO
         System.out.println("---CREACION USUARIO----");
@@ -223,27 +255,49 @@ public class App {
         Usuario pau2 = new Usuario("pau2", "pau@mail.com", true);
         servicioUsuario.registrarUsuario(pau2);
 
-        /**     Concierto conciertoPrueba = new Concierto("conciertoPrueba", LocalDate.of(2025,12,05), recintoPrueba,20, "My Chemical Romance" );
-             conciertoPrueba.consultarNombre();
+        // TICKET
+        Ticket ticket = new Ticket(partido1, Pau);
+        Ticket ticket2 = new Ticket(concierto1, Junfeng);
+
+        DetallePago pago = new DetallePago("VISA", "123457");
+        Pau.añadirDetallePago(pago);
+        pago.realizarPago(250, "VISA");
+
+
+        listaMezclada.add(Pau);
+        listaMezclada.add(concierto1);
+        listaMezclada.add(partido1);
+        listaMezclada.add(ticket);
+        UtilidadExportacion.exportarLista(listaMezclada);
+
+        PagoTarjeta pago1 = new PagoTarjeta("123456789", "05/27");
+        pago1.procesarPago(50);
+
+
+
+        /*     Concierto conciertoPrueba = new Concierto("conciertoPrueba", LocalDate.of(2025,12,05), recintoPrueba,20, "My Chemical Romance" );
+             conciertoPrueba.getNombre();
              conciertoPrueba.consultarBandaPrincipal();
              conciertoPrueba.mostrarInformacion();
 
              //PARTIDO
              Partido partidoPrueba = new Partido("Villareal/Betis", LocalDate.now(), recintoPrueba, 20, "Villareal FC", "Real Betis FC");
-             partidoPrueba.consultarNombre();
+             partidoPrueba.getNombre();
              partidoPrueba.consultarEquipoLocal();
              partidoPrueba.consultarEquipoVisitante();
-             partidoPrueba.mostrarInformacion();**/
+             partidoPrueba.mostrarInformacion();*/
+
+        /*
         recintoPrueba.reservarAsientoVip(1);
         recintoPrueba.reservarAsientoVip(5);
         recintoPrueba.reservarAsientoVip(10);
         recintoPrueba.consultarAsientosVip();
         System.out.println(recintoPrueba.contarAsientosVipLibres());
-        servicioEvento.registrarEvento(fdl);
+        //servicioEvento.registrarEvento(fdl);
 
-        servicioEvento.registrarEvento(evento3);
-        servicioEvento.registrarEvento(evento4);
-        servicioEvento.registrarEvento(evento5);
+        //servicioEvento.registrarEvento(evento3);
+        //servicioEvento.registrarEvento(evento4);
+        //servicioEvento.registrarEvento(evento5);
 
         servicioUsuario.registrarUsuario(Maria);
         servicioUsuario.registrarUsuario(Junfeng);
@@ -268,7 +322,8 @@ public class App {
         System.out.println("---CUANTOS EVENTOS SUPERAN EL AFORO MINIMO---");
         System.out.println(servicioEvento.contarEventosPorAforo(100));
         System.out.println("----VALIDACIONES----");
-    }
+
+*/    }
 
 
 

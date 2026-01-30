@@ -1,7 +1,9 @@
 package com.azahartech.eventdev.modelo;
+import com.azahartech.eventdev.util.Exportable;
+
 import java.util.UUID;
 
-public class Usuario {
+public class Usuario implements Exportable {
 
     //ATRIBUTOS
 
@@ -54,5 +56,21 @@ public class Usuario {
 
     public void setEsVip(boolean esVip) {
         this.esVip = esVip;
+    }
+
+    @Override
+    public String aCSV() {
+        return "Usuario:" + id + ";" + nombreUsuario + ";" + email + ";" + esVip + ";" + detallePago.aCSV();
+    }
+
+    @Override
+    public String aXML() {
+        return "<usuario>\n" +
+                "\t<id>" + id + "</id>\n" +
+                "\t<nombre>" + nombreUsuario + "</nombre>\n" +
+                "\t<email>" + email + "</email>\n" +
+                "\t<vip>" + esVip + "</vip>\n" +
+                "\t" + detallePago.aXML() +
+                "</usuario>\n";
     }
 }

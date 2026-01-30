@@ -1,9 +1,10 @@
 package com.azahartech.eventdev.modelo;
 
-import java.time.LocalDate;
-import java.util.UUID;
+import com.azahartech.eventdev.util.Exportable;
 
-public class Evento {
+import java.time.LocalDate;
+
+public abstract class Evento implements Exportable {
 
     //ATRIBUTOS
     private String nombre;
@@ -26,14 +27,14 @@ public class Evento {
         id = nuevoId;
     }
     //CONSULTAS
-    public String consultarNombre(){
+    public String getNombre(){
         return nombre;
     }
-    public LocalDate consultarFecha(){
+    public LocalDate getFecha(){
         return fecha;
     }
-    public double consultarPrecio(){return precio;}
-    public Recinto consultarRecinto(){
+    public double getPrecio(){return precio;}
+    public Recinto getRecinto(){
         return recinto;
     }
     public void mostrarInformacion(){
@@ -62,5 +63,27 @@ public class Evento {
 
     public void setId(String id) {
         this.id = id;
+    }
+    public final String obtenerCodigoReferencia(){
+        return "REF-" + getId() + "-NOM" + getNombre();
+    }
+    public abstract double calcularCosteOperativo();
+
+    public final double calcularPrecioVentaRecomendado(){
+     return (calcularCosteOperativo()/ getRecinto().consultarAforoMaximo())*(1 + 0.20);
+    }
+
+    @Override
+    public String aCSV() {
+        return  nombre + ";" + getRecinto().consultarAforoMaximo() + ";" + fecha;
+    }
+
+    @Override
+    public String aXML() {
+        return "\t<nombreEvento>" + this.nombre + "</nombreEvento>\n" +
+                "\t" + recinto.aXML() +
+                "\t<fecha>" + fecha + "</fecha>\n" +
+                "\t<precio>" + precio + "</precio>\n" +
+                "\t<benefico>" + esBenefico + "</benefico>";
     }
 }

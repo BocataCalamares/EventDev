@@ -3,7 +3,6 @@ package com.azahartech.eventdev.servicio;
 import com.azahartech.eventdev.datos.RepositorioGenerico;
 import com.azahartech.eventdev.modelo.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
@@ -21,7 +20,7 @@ public class ServicioEvento {
         //this.listaEventos = new ArrayList<>();
         //carteleraDestacados = new Evento[5];
         Recinto Cdf = new Recinto("Casal de Festes", "Calle Colón nº5", 550);
-        eventoDePrueba = new Evento("Feria de Mayo", LocalDate.of(2025, 12, 27), Cdf, 20, "VAMS");
+        //eventoDePrueba = new Evento("Feria de Mayo", LocalDate.of(2025, 12, 27), Cdf, 20, "VAMS");
         DetallePago factura = new DetallePago("Mastercard", "7512348951");
         usuarioDePrueba = new Usuario("Pedro", "Pedro@mail.com", true);
         usuarioDePrueba.añadirDetallePago(factura);
@@ -30,7 +29,7 @@ public class ServicioEvento {
     }
 
     public Ticket realizarCompra(int cantidad) {
-        usuarioDePrueba.consultarDetallePago().realizarPago(eventoDePrueba.consultarPrecio() * cantidad);
+        usuarioDePrueba.consultarDetallePago().realizarPago(eventoDePrueba.getPrecio() * cantidad);
         eventoDePrueba.registrarVenta(cantidad);
         return new Ticket(eventoDePrueba, usuarioDePrueba);
     }
@@ -61,9 +60,9 @@ public class ServicioEvento {
         Iterator<Evento> it = this.listaEventos.iterator();
         while(it.hasNext()){
             Evento eventoActual = it.next();
-            if(eventoActual.consultarFecha().isBefore(LocalDate.now())){
+            if(eventoActual.getFecha().isBefore(LocalDate.now())){
                 it.remove();
-                System.out.println("Eliminado evento caducado " + eventoActual.consultarNombre());
+                System.out.println("Eliminado evento caducado " + eventoActual.getNombre());
             }
         }
     } */
@@ -73,19 +72,19 @@ public class ServicioEvento {
 
     public Evento buscarEvento(String nombreEvento){
         Evento eventoBuscado;
-        eventoBuscado = repositorio.listar().stream().filter(e->e.consultarNombre().toLowerCase().equals(nombreEvento)).findFirst().orElse(null);
+        eventoBuscado = repositorio.listar().stream().filter(e->e.getNombre().toLowerCase().equals(nombreEvento)).findFirst().orElse(null);
         return eventoBuscado;
 
     }
 
     public ArrayList<Evento>obtenerEventosConAforoMayor(int capacidad){
         ArrayList<Evento> eventosAforoMax;
-        eventosAforoMax = repositorio.listar().stream().filter(e -> e.consultarRecinto().consultarAforoMaximo()>capacidad).collect(Collectors.toCollection(ArrayList::new));
+        eventosAforoMax = repositorio.listar().stream().filter(e -> e.getRecinto().consultarAforoMaximo()>capacidad).collect(Collectors.toCollection(ArrayList::new));
         return eventosAforoMax;
     }
     public long contarEventosPorAforo(int aforoMinimo){
 
-        return mapaEventos.values().stream().filter(evento-> evento.consultarRecinto().consultarAforoMaximo()>aforoMinimo).count();
+        return mapaEventos.values().stream().filter(evento-> evento.getRecinto().consultarAforoMaximo()>aforoMinimo).count();
 
     }
 
@@ -110,9 +109,9 @@ public class ServicioEvento {
         double precio = 0;
         for (int i = 0; i < carteleraDestacados.length; i++) {
             if (carteleraDestacados[i] != null) {
-                if (carteleraDestacados[i].consultarPrecio() > precio) {
+                if (carteleraDestacados[i].getPrecio() > precio) {
                     eventoMasCaro = carteleraDestacados[i];
-                    precio = carteleraDestacados[i].consultarPrecio();
+                    precio = carteleraDestacados[i].getPrecio();
 
                 }
 
@@ -121,7 +120,13 @@ public class ServicioEvento {
         return eventoMasCaro;
 
     } */
-
+    public void generarInformeFinanciero(){
+        for(Evento evento : mapaEventos.values()){
+            System.out.println("Evento: " + evento.getNombre());
+            System.out.println("Coste opetativo: " + evento.calcularCosteOperativo());
+            System.out.println("Precio Sugerido: " + evento.calcularPrecioVentaRecomendado());
+        }
+    }
 
 
 

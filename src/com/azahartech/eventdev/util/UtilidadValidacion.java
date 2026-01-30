@@ -34,5 +34,11 @@ public class UtilidadValidacion {
     public static boolean esTelefonoValido(String telefono){
         return telefono.matches("^[679]\\d{8}$");
     }
+    public static boolean esNumeroTarjetaValido(String numeroTarjeta){
+        return numeroTarjeta.matches("\\d{16}");
+    }
+    //public static boolean tarjetaCaducada(String fechaCaducidad){
+    //    return fechaCaducidad
+    //}
 }
 
