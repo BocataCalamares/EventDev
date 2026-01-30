@@ -2,6 +2,7 @@ package com.azahartech.eventdev.servicio;
 
 import com.azahartech.eventdev.datos.RepositorioGenerico;
 import com.azahartech.eventdev.modelo.*;
+import com.azahartech.eventdev.pagos.ProcesadorPago;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +15,7 @@ public class ServicioEvento {
     //private ArrayList<Evento> listaEventos;
     private RepositorioGenerico<Evento> repositorio = new RepositorioGenerico<>();
     private HashMap<String, Evento> mapaEventos = new HashMap<>();
-
+    private ProcesadorPago pasarela;
 
     public ServicioEvento() {
         //this.listaEventos = new ArrayList<>();
@@ -28,10 +29,17 @@ public class ServicioEvento {
 
     }
 
-    public Ticket realizarCompra(int cantidad) {
-        usuarioDePrueba.consultarDetallePago().realizarPago(eventoDePrueba.getPrecio() * cantidad);
-        eventoDePrueba.registrarVenta(cantidad);
-        return new Ticket(eventoDePrueba, usuarioDePrueba);
+    public Ticket realizarCompra(int cantidad, Usuario usuario, Evento evento, ProcesadorPago pasarela) {
+       // usuarioDePrueba.consultarDetallePago().realizarPago(eventoDePrueba.getPrecio() * cantidad);
+       boolean pagoExitoso = pasarela.procesarPago(eventoDePrueba.getPrecio() * cantidad);
+        if (pagoExitoso){
+            eventoDePrueba.registrarVenta(cantidad);
+            return new Ticket(eventoDePrueba, usuarioDePrueba);
+        } else {
+            System.err.println("El pago ha sido rechazado");
+            return null;
+        }
+
     }
 
    /* public void añadirDestacado(Evento evento) {

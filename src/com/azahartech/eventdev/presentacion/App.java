@@ -1,6 +1,7 @@
 package com.azahartech.eventdev.presentacion;
 import com.azahartech.eventdev.modelo.*;
 import com.azahartech.eventdev.pagos.PagoTarjeta;
+import com.azahartech.eventdev.pagos.ProcesadorPago;
 import com.azahartech.eventdev.servicio.ServicioEvento;
 import com.azahartech.eventdev.servicio.ServicioUsuario;
 import com.azahartech.eventdev.util.Exportable;
@@ -270,7 +271,7 @@ public class App {
         listaMezclada.add(ticket);
         UtilidadExportacion.exportarLista(listaMezclada);
 
-        PagoTarjeta pago1 = new PagoTarjeta("123456789", "05/27");
+        ProcesadorPago pago1 = new PagoTarjeta("123456789", "05/27");
         pago1.procesarPago(50);
 
 
