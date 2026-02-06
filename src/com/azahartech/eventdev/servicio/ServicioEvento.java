@@ -161,7 +161,10 @@ public class ServicioEvento {
                 evento.finalizarEvento();
             }
         }
-        mapaEventos.values().stream().filter(evento -> evento.getEstado()==EstadoEvento.FINALIZADO).forEach(evento -> System.out.println(evento.aCSV()));
+
+        mapaEventos.values().stream()
+                .filter(evento -> evento.getEstado()==EstadoEvento.FINALIZADO)
+                .forEach(evento -> System.out.println(evento.aCSV()));
     }
 }
 
