@@ -5,12 +5,12 @@ import com.azahartech.eventdev.pagos.ProcesadorPago;
 import com.azahartech.eventdev.servicio.ServicioEvento;
 import com.azahartech.eventdev.servicio.ServicioUsuario;
 import com.azahartech.eventdev.util.Exportable;
+import com.azahartech.eventdev.util.Notificable;
 import com.azahartech.eventdev.util.UtilidadExportacion;
 import com.azahartech.eventdev.util.UtilidadValidacion;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Aplicación de gestión de eventos
@@ -186,10 +186,12 @@ public class App {
         //evento4 = new Evento("Feria Vila-Real", LocalDate.of(2025, 12, 5), recintoPrueba3, 5, "BACD");
         //evento5 = new Evento("Feria Almassora", LocalDate.of(2026, 01, 3), recintoPrueba2, 10, "DABC");
 
-        Concierto concierto1 = new Concierto("Bon Jovi", LocalDate.of(2026, 5,10), recintoPrueba2, 15, "EVT-123-ABC", "BonJovi",500);
-        Concierto concierto2 = new Concierto("HannahMontana", LocalDate.of(2026, 8, 10), recintoPrueba4, 20, "EVT-456-ZXC", "HannahMontana", 750);
-        Partido partido1 = new Partido("Malaga/Barcelona", LocalDate.of(2026, 4, 12), recintoPrueba3, 35, "EVT-321-CBA","Malaga", "Barcelona", 750, 3000);
-        Partido partido2 = new Partido("Villareal/Valencia", LocalDate.of(2026, 3, 12), recintoPrueba3, 20, "EVT-654-CXZ", "VillarealFC", "ValenciaFC", 750, 1750);
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+
+        Concierto concierto1 = new Concierto("Bon Jovi", LocalDate.of(2026, 5,10), recintoPrueba2, 15, "EVT-123-ABC", "BonJovi",500, TipoEvento.CONCIERTO);
+        Concierto concierto2 = new Concierto("HannahMontana", LocalDate.of(2026, 8, 10), recintoPrueba4, 20, "EVT-456-ZXC", "HannahMontana", 750, TipoEvento.CONCIERTO);
+        Partido partido1 = new Partido("Malaga/Barcelona", LocalDate.of(2026, 4, 12), recintoPrueba3, 35, "EVT-321-CBA","Malaga", "Barcelona", 750, 3000, TipoEvento.DEPORTE);
+        Partido partido2 = new Partido("Villareal/Valencia", LocalDate.of(2026, 3, 12), recintoPrueba3, 20, "EVT-654-CXZ", "VillarealFC", "ValenciaFC", 750, 1750, TipoEvento.DEPORTE);
 
 
 
@@ -239,11 +241,11 @@ public class App {
 
 
         //CREACION DE USUARIO
-        System.out.println("---CREACION USUARIO----");
+       /* System.out.println("---CREACION USUARIO----");
         System.out.println("Introduce nombre: ");
         String nombre = teclado.nextLine();
         System.out.println("Introduce Email: ");
-        String mail = teclado.nextLine();
+         String mail = teclado.nextLine();
         while(!UtilidadValidacion.esEmailValido(mail)){
             System.out.println("Introduce Email: ");
             mail = teclado.nextLine();
@@ -251,29 +253,53 @@ public class App {
         System.out.println("Eres vip");
         boolean esVIP = teclado.nextBoolean();
         teclado.nextLine();
-        Pau = new Usuario(nombre, mail, esVIP);
-        servicioUsuario.registrarUsuario(Pau);
-        Usuario pau2 = new Usuario("pau2", "pau@mail.com", true);
-        servicioUsuario.registrarUsuario(pau2);
+       */// Pau = new Usuario(nombre, mail, esVIP);
+        //servicioUsuario.registrarUsuario(Pau);
+        //Usuario pau2 = new Usuario("pau2", "pau@mail.com", true);
+        //servicioUsuario.registrarUsuario(pau2);
 
         // TICKET
-        Ticket ticket = new Ticket(partido1, Pau);
+        //Ticket ticket = new Ticket(partido1, Pau);
         Ticket ticket2 = new Ticket(concierto1, Junfeng);
 
         DetallePago pago = new DetallePago("VISA", "123457");
-        Pau.añadirDetallePago(pago);
+        //Pau.añadirDetallePago(pago);
         pago.realizarPago(250, "VISA");
 
 
-        listaMezclada.add(Pau);
+       // listaMezclada.add(Pau);
         listaMezclada.add(concierto1);
         listaMezclada.add(partido1);
-        listaMezclada.add(ticket);
+       // listaMezclada.add(ticket);
         UtilidadExportacion.exportarLista(listaMezclada);
 
-        ProcesadorPago pago1 = new PagoTarjeta("123456789", "05/27");
+        ProcesadorPago pago1 = new PagoTarjeta("1234567893216549", "05/27");
         pago1.procesarPago(50);
+        List<Notificable> listaNotificable = new ArrayList<>();
+        listaNotificable.add(Junfeng);
+        listaNotificable.add(new Administrador());
+        for (Notificable notificable: listaNotificable){
+            notificable.enviarNotificaciones("Bienvenida");
+        }
 
+        List<Usuario> listaDesordenada= new ArrayList<>();
+        listaDesordenada.add(Junfeng);
+        //listaDesordenada.add(Pau);
+        listaDesordenada.add(Terminator);
+
+        System.out.println(Junfeng.compareTo(Terminator));
+        Collections.sort(listaDesordenada);
+        System.out.println(listaDesordenada);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
+        pago1.procesarPago(50);
 
 
         /*     Concierto conciertoPrueba = new Concierto("conciertoPrueba", LocalDate.of(2025,12,05), recintoPrueba,20, "My Chemical Romance" );
@@ -323,8 +349,14 @@ public class App {
         System.out.println("---CUANTOS EVENTOS SUPERAN EL AFORO MINIMO---");
         System.out.println(servicioEvento.contarEventosPorAforo(100));
         System.out.println("----VALIDACIONES----");
-
-*/    }
+*/
+        System.out.println("PUREBAS PROCESADOR CIERRE");
+        concierto1.activarVenta();
+        partido1.activarVenta();
+        servicioEvento.registrarEvento(partido1);
+        servicioEvento.registrarEvento(concierto1);
+        servicioEvento.procesarCierreEventos();
+    }
 
 
 

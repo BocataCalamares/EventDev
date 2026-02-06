@@ -1,9 +1,10 @@
 package com.azahartech.eventdev.modelo;
 import com.azahartech.eventdev.util.Exportable;
+import com.azahartech.eventdev.util.Notificable;
 
 import java.util.UUID;
 
-public class Usuario implements Exportable {
+public class Usuario implements Exportable, Notificable, Comparable<Usuario> {
 
     //ATRIBUTOS
 
@@ -72,5 +73,26 @@ public class Usuario implements Exportable {
                 "\t<vip>" + esVip + "</vip>\n" +
                 "\t" + detallePago.aXML() +
                 "</usuario>\n";
+    }
+
+    @Override
+    public void enviarNotificaciones(String mensaje) {
+        System.out.println("Enviando email a " + email + ": " + mensaje);
+    }
+
+    @Override
+    public int compareTo(Usuario usuario) {
+      return this.nombreUsuario.compareTo(usuario.nombreUsuario);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + id + '\'' +
+                ", nombreUsuario='" + nombreUsuario + '\'' +
+                ", email='" + email + '\'' +
+                ", detallePago=" + detallePago +
+                ", esVip=" + esVip +
+                '}';
     }
 }

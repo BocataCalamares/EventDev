@@ -3,6 +3,7 @@ package com.azahartech.eventdev.modelo;
 import com.azahartech.eventdev.util.Exportable;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public abstract class Evento implements Exportable {
 
@@ -13,14 +14,18 @@ public abstract class Evento implements Exportable {
     private double precio;
     private boolean esBenefico = false;
     private String id;
+    private EstadoEvento estado;
+    private TipoEvento tipo;
 
     //METODOS
     //CONSTRUCTOR
-    public Evento(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId){
+    public Evento(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, TipoEvento nuevoTipo){
         nombre=nuevoNombre;
         fecha=nuevaFecha;
         recinto=nuevoRecinto;
         precio=nuevoPrecio;
+        this.tipo=nuevoTipo;
+        this.estado = EstadoEvento.PLANIFICADO;
         if (precio<=10){
             esBenefico=true;
         }
@@ -38,12 +43,26 @@ public abstract class Evento implements Exportable {
         return recinto;
     }
     public void mostrarInformacion(){
-        System.out.printf("---EVENTO---%nEl evento %s se realizará el dia %s en %s%n---%n", nombre, fecha, recinto.consultarNombreRecinto());
-    }
-    public void registrarVenta(int cantidad){
-        System.out.printf("Venta registrada%n");
+        System.out.printf("---EVENTO---%nEl evento %s se realizará el dia %s en %s el evento será: %s%n---%n ", nombre, fecha, recinto.consultarNombreRecinto(), tipo.getDescripcion());
     }
 
+    public TipoEvento getTipo() {
+        return tipo;
+    }
+
+    public EstadoEvento getEstado() {
+        return estado;
+    }
+
+    public boolean registrarVenta(int cantidad) {
+        if (estado == EstadoEvento.ACTIVO) {
+            System.out.printf("Venta registrada%n");
+            return true;
+        } else {
+            System.out.println("El evento está: " + estado);
+            return false;
+        }
+    }
     @Override
     public String toString() {
         return nombre;
@@ -85,5 +104,38 @@ public abstract class Evento implements Exportable {
                 "\t<fecha>" + fecha + "</fecha>\n" +
                 "\t<precio>" + precio + "</precio>\n" +
                 "\t<benefico>" + esBenefico + "</benefico>";
+    }
+    //METODOS
+    public void activarVenta(){
+        estado=EstadoEvento.ACTIVO;
+    }
+    public void cancelarEvento(){
+        estado=EstadoEvento.CANCELADO;
+    }
+    public void finalizarEvento(){
+        estado=EstadoEvento.FINALIZADO;
+    }
+
+    /*@Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return Objects.equals(id, evento.id);
+    } */
+
+    @Override
+    public boolean equals(Object eventoPrueba) {
+        boolean banderita;
+        if (eventoPrueba == null || getClass() != eventoPrueba.getClass()){
+            return banderita = false;
+        }else{
+            Evento evento = (Evento) eventoPrueba;
+            return banderita = Objects.equals(id, evento.id);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

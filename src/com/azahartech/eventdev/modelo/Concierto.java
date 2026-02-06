@@ -8,12 +8,14 @@ public class Concierto extends Evento{
     private String bandaPrincipal;
     private double costeMontaje;
     private final double COSTESFIJOS = 5000;
+    private String listaCanciones;
 
 //METODO CONSTRUCTOR PADRE
-    public Concierto(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, String nuevoBandaPrincipal, double costeMontaje) {
-        super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio, nuevoId);
+    public Concierto(String nuevoNombre, LocalDate nuevaFecha, Recinto nuevoRecinto, double nuevoPrecio, String nuevoId, String nuevoBandaPrincipal, double costeMontaje, TipoEvento nuevoTipo) {
+        super(nuevoNombre, nuevaFecha, nuevoRecinto, nuevoPrecio, nuevoId, nuevoTipo);
     bandaPrincipal = nuevoBandaPrincipal;
     this.costeMontaje=costeMontaje;
+    listaCanciones = null;
     }
 
 //METODOS PROPIOS
@@ -39,9 +41,17 @@ public class Concierto extends Evento{
         this.costeMontaje = costeMontaje;
     }
 
+    public String getListaCanciones() {
+        return listaCanciones;
+    }
+
+    public void setListaCanciones(String listaCanciones) {
+        this.listaCanciones = listaCanciones;
+    }
+
     @Override
     public String aCSV() {
-        return "concierto" + super.aCSV() + ";" + bandaPrincipal;
+        return "concierto" + super.aCSV() + ";" + bandaPrincipal + ";" + listaCanciones;
     }
 
     @Override
@@ -49,6 +59,7 @@ public class Concierto extends Evento{
         return "<concierto>\n" +
                 "\t" + super.aXML() +
                 "\t<bandaPrincipal>" + bandaPrincipal + "</bandaPrincipal>\n" +
+                "\t<listaCanciones" + listaCanciones+ "</listaCanciones>\n" +
                 "</concierto>\n";
     }
 }

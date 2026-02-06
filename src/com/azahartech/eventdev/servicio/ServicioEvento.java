@@ -6,6 +6,7 @@ import com.azahartech.eventdev.pagos.ProcesadorPago;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class ServicioEvento {
@@ -136,6 +137,34 @@ public class ServicioEvento {
         }
     }
 
-
-
+    public void procesarCierreEventos(){
+        Scanner teclado = new Scanner(System.in);
+        for(Evento evento : mapaEventos.values()){
+            if (evento.getEstado()==EstadoEvento.ACTIVO){
+               if(evento instanceof Partido){
+                   System.out.println("Cerrando partido " + evento.getNombre());
+                   Partido partido = (Partido) evento;
+                   String resultado;
+                   System.out.println("Resultado del partido");
+                   resultado = teclado.nextLine();
+                   partido.setResultadoMarcador(resultado);
+               } else if(evento instanceof Concierto){
+                    System.out.println("Cerrando concierto " + evento.getNombre());
+                     Concierto concierto = (Concierto) evento;
+                     String cancion;
+                   System.out.println("Nombre de la canción");
+                   cancion = teclado.nextLine();
+                   concierto.setListaCanciones(cancion);
+                }else {
+                   System.out.println("Cerrando evento genérico");
+                }
+                evento.finalizarEvento();
+            }
+        }
+        mapaEventos.values().stream().filter(evento -> evento.getEstado()==EstadoEvento.FINALIZADO).forEach(evento -> System.out.println(evento.aCSV()));
+    }
 }
+
+
+
+
